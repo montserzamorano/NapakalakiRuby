@@ -1,3 +1,94 @@
-== NapakalakiRuby
+A) Descripción del problema y dinámica del juego (GUIÓN DE PRÁCTICAS)
 
-You should document your project here.
+Se desea implementar un juego de rol llamado Napakalaki, el cual se basa en el
+juego Munchkin, diseñado por Steve Jackson, bajo el lema “Mata a los monstruos,
+roba el tesoro, apuñala a tus amigos”.
+
+En Napakalaki, al igual que en Munchkin, cada jugador comienza siendo un humano
+de nivel 1 y el reto consiste en alcanzar  el nivel 10 antes que los demás.
+Para ello, cada  jugador debe enfrentarse a monstruos y superar sus terribles
+maldiciones. Como ayuda, contará con armas y armaduras (sus tesoros).
+
+En nuestro juego podrán participar 3 jugadores, identificados por un nombre
+único. Como ya hemos dicho, su nivel inicial es 1 y gana la partida si llega
+a 10. El juego contiene dos barajas de cartas: tesoros y monstruos.
+
+                                  Tesoros
+
+Los tesoros poseen un nombre, valen una cierta cantidad de piezas de oro, y
+suponen al jugador que los tiene poder enfrentarse a un monstruo con un cierto
+número de niveles adicionales a los que él tiene como jugador (lo que se
+denomina un bonus). Hay varios tipos de tesoros: de mano (una o dos manos),
+casco, calzado, armadura y collar.
+
+Puede haber tesoros sin bonus, cuya utilidad es simplemente la de su valor en
+piezas de oro. Los tesoros que tienen 2 bonus distintos (como en el ejemplo de
+la Figura 1), suman el valor más bajo si el jugador no dispone del tesoro
+“collar” y suman el nivel más alto si se dispone del tesoro “collar”.
+
+A las cartas de tesoro de las que dispone un jugador para combatir se las
+denomina cartas “equipadas” o “visibles” y se muestran a todos los jugadores.
+Cada jugador puede equiparse con un único tesoro de cada tipo (salvo los
+tesoros que sólo ocupan una mano, en cuyo caso puede tener dos). Así, cada
+jugador podría equiparse en el mejor de los casos con una armadura, un tesoro
+de dos manos, un casco, un calzado y un collar; o con una armadura, dos tesoros
+de una mano, un casco, un calzado y un collar. Además de los tesoros equipados,
+cada jugador podrá tener hasta cuatro tesoros “ocultos”, que como es lógico los
+demás jugadores no pueden ver. En el combate contra un monstruo, al nivel del
+jugador se sumará el bonus de todos sus tesoros equipados, no así el de sus
+tesoros ocultos. Al final de cada turno, el jugador podrá equiparse de nuevos
+tesoros (haciendo visible una o varias cartas que tenía ocultas en la mano),
+respetando las restricciones comentadas anteriormente.
+
+Si un jugador se ha equipado con el collar, el resto de tesoros actúan con el
+bonus más alto. Pero tras un combate contra un monstruo en el que ha
+intervenido el collar, el jugador debe descartarse obligatoriamente del collar.
+No lo puede volver a usar hasta que le vuelva a salir al robar un tesoro del
+mazo.
+
+                                    Juego
+
+El jugador que comienza el juego se decide al azar, y después se sigue el orden
+de las agujas del reloj. En el primer turno que tiene cada jugador, lanza el
+dado para saber con cuantos tesoros comienza: si obtiene un 1 en el dado,
+comienza con 1 tesoro, si obtiene entre un 2 y un 5 en el dado, comienza con 2
+tesoros, y si obtiene un 6, comienza con 3 tesoros.
+
+En su turno, el jugador debe sacar una carta del mazo de monstruos y combatir
+contra el monstruo que salga. Para el combate, el jugador tendrá un nivel total
+alculado como sigue: nivel total del jugador = nivel del jugador + bonus de
+todos los tesoros que tenga equipados (teniendo en cuenta que si tiene el
+collar equipado, todos los tesoros suman el bonus más alto).
+
+El nivel mínimo de un jugador es 1, es decir, que si un jugador tiene nivel 2 y
+sucumbe ante un monstruo cuyo mal rollo es bajar 3 niveles, se queda con nivel
+1 (nunca se puede quedar en negativo o cero). Cuando un jugador se queda en
+situación de muerte, lanzará el dado para equiparse con algún tesoro antes del
+siguiente combate. Se equipará con 1, 2 ó 3 tesoros según lo que obtenga en el
+dado, aplicando la misma correspondencia que al principio de la partida.
+
+Los tesoros recibidos por el jugador siempre pasarán a formar parte de su lista
+de tesoros ocultos. Después del combate, el jugador puede equiparse las cartas
+que considere oportuno. En caso de quedarse con más de 4 cartas ocultas, deberá
+descartar las que juzgue que le serán menos útiles hasta quedarse con un máximo
+de 4 cartas ocultas.
+
+Las cartas visibles no pueden pasar nunca a ser ocultas. Por ejemplo, un
+jugador no puede cambiar un casco que se haya equipado por otro con un bonus
+mayor que tenga oculto. Sin embargo, sí podrán ser susceptibles de ser elegidas
+como descartes cuando el mal rollo del monstruo no indique explícitamente qué
+tipo de tesoros se pierden.
+
+Finalmente, es posible comprar un nivel con 1.000 piezas de oro. La compra se
+realizará al principio del turno del jugador, antes de sacar el monstruo con el
+que debe combatir. Para ello, el jugador deberá descartarse de tantos tesoros
+como sea necesario para sumar dicha cantidad. Es posible comprar tantos niveles
+como se crea conveniente (1 nivel – 1000 piezas de oro, 2 niveles – 2000 piezas
+de oro), y es posible usar tesoros tanto visibles como ocultos. El juego no
+devuelve el cambio, si un jugador emplea tesoros por valor de 1900 piezas de
+oro para comprar niveles, el sistema sólo le dará un nivel y perderá todos los
+tesoros empleados.
+
+Tras el combate, el monstruo en juego se descarta y el jugador podrá equiparse
+algunos de sus tesoros ocultos, respetando las restricciones comentadas
+anteriormente.
